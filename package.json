@@ -2,14 +2,22 @@
   "name": "puresightTRIANIN",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines":{
+    "node": "0.10.x", 
+    "npm": "1.4.x"
   },
   "author": "Sri Mohan",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.9.2",
     "express": "^4.10.1",
-    "jade": "^1.7.0"
+    "jade": "^1.7.0",
+    "mongoose": "^3.8.18",
+    "morgan": "^1.4.1",
+    "stylus": "^0.49.2"
   }
 }

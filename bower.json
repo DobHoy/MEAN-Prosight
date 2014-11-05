@@ -1,0 +1,17 @@
+{
+  "name": "puresightTRIANIN",
+  "version": "0.0.0",
+  "homepage": "https://github.com/DobHoy/MEAN-Prosight",
+  "authors": [
+    "DobHoy <dob.hoy@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "toastr": "~2.1.0",
+    "angular": "~1.3.1",
+    "angular-resource": "~1.3.1",
+    "angular-route": "~1.3.1"
+  }
+}
