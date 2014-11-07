@@ -45,23 +45,24 @@ db.once('open', function callback(){
   console.log('multivision databse is opened');
 }); 
 
-var messageSchema = mongoose.Schema({message: String});
-var Message = mongoose.model('Message', messageSchema);
-var mongoMessage;
-Message.findOne().exec(function(err, messageDoc){
-  console.log("hi i got logged");
-  mongoMessage = messageDoc.message;
-  console.log("message is " + mongoMessage);
-});
+// var messageSchema = mongoose.Schema({message: String});
+// var Message = mongoose.model('Message', messageSchema);
+// var mongoMessage;
+// Message.findOne().exec(function(err, messageDoc){
+//   console.log("hi i got logged");
+//   mongoMessage = messageDoc.message;
+//   console.log("message is " + mongoMessage);
+// });
 
-app.get('/partials/:partialPath', function(req, res){
-  res.render('partials/' + req.params.partialPath);
+app.get('/partials/*', function(req, res){
+  res.render('../../public/app/' + req.params[0]);
 });
 
 app.get('*', function(req, res){
-  res.render('index', {
-    mongoMessage: mongoMessage
-  });
+  // res.render('index', {
+  //   mongoMessage: mongoMessage
+  // });
+  res.render('index');
 });
 
 var port = process.env.PORT || 3030;
