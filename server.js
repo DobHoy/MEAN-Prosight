@@ -1,49 +1,36 @@
-var express = require('express'),
-  stylus = require('stylus'), 
-  logger = require('morgan'), 
-  bodyParser = require('body-parser'), 
-  mongoose = require('mongoose');
+var express = require('express');
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var app = express();
 
-function compile(str, path){
-  return stylus(str).set('filename', path);
+var config = require('./server/config/config')[env];
 
-};
+require('./server/config/express')(app, config);
 
-app.set('views', __dirname + '/server/views');
-app.set('view engine', 'jade');
-app.use(logger('dev'));
+require('./server/config/mongoose')(config);
 
-// app.use(bodyParser());
+require('./server/config/passport')();
 
-// app.use(bodyParser.urlencoded());
-app.use(bodyParser.urlencoded({ extended: true }));
+require('./server/config/routes')(app);
 
-app.use(bodyParser.json());
+app.listen(config.port);
 
-app.use(stylus.middleware(
-  {
-    src: __dirname + '/public',
-    compile: compile
-  }
-));
-
-app.use(express.static(__dirname + '/public'));
-
-if(env === 'development')
-  mongoose.connect('mongodb://localhost/multivision');
-else
-  mongoose.connect('mongodb://dobhoy:multivision@ds051630.mongolab.com:51630/multivision');
+console.log('listening on port ' + config.port +'...');
 
 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error cannot connect!...'));
-db.once('open', function callback(){
-  console.log('multivision databse is opened');
-}); 
+// if(env === 'development')
+//   mongoose.connect('mongodb://localhost/multivision');
+// else
+//   mongoose.connect('mongodb://dobhoy:multivision@ds051630.mongolab.com:51630/multivision');
+
+// mongoose.connect(config.db);
+
+// var db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error cannot connect!...'));
+// db.once('open', function callback(){
+//   console.log('multivision databse is opened');
+// }); 
 
 // var messageSchema = mongoose.Schema({message: String});
 // var Message = mongoose.model('Message', messageSchema);
@@ -54,18 +41,16 @@ db.once('open', function callback(){
 //   console.log("message is " + mongoMessage);
 // });
 
-app.get('/partials/*', function(req, res){
-  res.render('../../public/app/' + req.params[0]);
-});
+// app.get('/partials/*', function(req, res){
+//   res.render('../../public/app/' + req.params[0]);
+// });
 
-app.get('*', function(req, res){
-  // res.render('index', {
-  //   mongoMessage: mongoMessage
-  // });
-  res.render('index');
-});
+// app.get('*', function(req, res){
+//   // res.render('index', {
+//   //   mongoMessage: mongoMessage
+//   // });
+//   res.render('index');
+// });
 
-var port = process.env.PORT || 3030;
-app.listen(port);
+// var port = process.env.PORT || 3030;
 
-console.log('listening on port ' + port +'...');
