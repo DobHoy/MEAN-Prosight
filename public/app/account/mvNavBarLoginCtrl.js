@@ -2,7 +2,7 @@ angular.module('app').controller('mvNavBarLoginCtrl', function($scope, $http, mv
   $scope.identity = mvIdentity;
 
   $scope.signin = function(username, password){
-    console.log('LOGIN IS ' + username + " " + password);
+    
     mvAuth.authenticateUser(username, password)
       .then(function(success){
         if(success){
@@ -13,7 +13,7 @@ angular.module('app').controller('mvNavBarLoginCtrl', function($scope, $http, mv
         }
       });
  
-    console.log("hi you've tried to log in");
+    
   }
 
   $scope.signout = function(){

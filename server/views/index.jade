@@ -10,10 +10,11 @@ block main-content
         ul.nav.navbar-nav
           li
             a(href="/") Home
+          li
+            a(href="/courses") Courses
         div(ng-include="'/partials/account/navbar-login'")
   section.content
     div(ng-view)
-  //- h2= mongoMessage
 
   footer.container.text-center
     p &copy; 2013 Multivision Corp International ltd. 
